@@ -31,8 +31,9 @@ class LRUCache:
         # get the value associated with the key
         value = self.store.get(key, None)
         # move key-value pair to the end
-        value.delete()
-        list.add_to_head(value)
+        del self.store[key]
+        self.store[key] = value
+        # return the value
         return value
 
     """
@@ -46,4 +47,4 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        pass
+        # 
