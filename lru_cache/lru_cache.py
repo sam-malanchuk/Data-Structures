@@ -14,11 +14,9 @@ class LRUCache:
         # Max number of nodes it can hold
         self.limit = limit
         # Current number of nodes it is holding
-        self.activeNodes = 0
-        # doubly linked list that holds the key and value pairs in the correct order
-        self.list = DoublyLinkedList()
-        # storage dict that provides fast access to every cache node
-        self.storage = {}
+        self.size = 0
+        self.order = DoublyLinkedList()
+        self.storage = dict()
 
     """
     Retrieves the value associated with the given key. Also
@@ -28,13 +26,12 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        # get the value associated with the key
-        value = self.store.get(key, None)
-        # move key-value pair to the end
-        del self.store[key]
-        self.store[key] = value
-        # return the value
-        return value
+        in key in self.storage:
+            node = self.storage[key]
+            self.order.move_to_front(node)
+            return node.value[1]
+        else:
+            return None
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -47,4 +44,16 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        # 
+        if key in self.storage:
+            node = self.storage[key]
+            node.value = (key, value)
+            self.order.move_to_front(node)
+            return
+        if self.size == self.limit:
+            del self.storage[self.order.tail.value]
+            self.order.remove_from_tail()
+            self.size -= 1
+        
+        self.order.add_to_head((key, value))
+        self.storage[key] = self.order.head
+        self.size += 1
