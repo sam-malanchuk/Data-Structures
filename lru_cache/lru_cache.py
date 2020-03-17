@@ -26,7 +26,7 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        in key in self.storage:
+        if key in self.storage:
             node = self.storage[key]
             self.order.move_to_front(node)
             return node.value[1]
