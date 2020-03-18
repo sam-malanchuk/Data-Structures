@@ -181,7 +181,7 @@ class DoublyLinkedList:
             self.head = None
             self.tail = None
         elif self.head == node:
-            self.head == node.next
+            self.head = node.next
             node.delete()
         elif self.tail == node:
             self.tail = node.prev
@@ -193,18 +193,27 @@ class DoublyLinkedList:
     def get_max(self):
         if self.head is None and self.tail is None:
             return "empty list"
+        # curr_node = self.head
+        # max_value = curr_node.value
+        # while curr_node.next is not None:
+        #     if curr_node.value > max_value:
+        #         max_value = curr_node.value
+        #     curr_node = curr_node.next
+        # return max_value
         curr_node = self.head
-        max_value = curr_node.value
+        max_node = curr_node
         while curr_node.next is not None:
-            if curr_node.value > max_value:
-                max_value = curr_node.value
+            if max_node.value < curr_node.value:
+                max_node = curr_node
             curr_node = curr_node.next
-        return max_value
+        return max_node.value
+
+
 
 # our_dll = DoublyLinkedList()
 # our_dll.add_to_head(8)
 # our_dll.add_to_head(3)
-# our_dll.add_to_head(13)
+# our_dll.add_to_tail(13)
 # our_dll.add_to_head(5)
 # our_dll.add_to_tail(7)
 
@@ -216,3 +225,5 @@ class DoublyLinkedList:
 # print("deleting", our_dll.head.next.next.value)
 # our_dll.delete(our_dll.head.next.next)
 # print(our_dll)
+
+# print("The max is: ", our_dll.get_max())
