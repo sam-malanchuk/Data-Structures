@@ -144,6 +144,8 @@ class DoublyLinkedListTests(unittest.TestCase):
     def test_get_max(self):
         self.assertEqual(self.dll.get_max(), 1)
         self.dll.add_to_tail(100)
+        print('looks like this', self.dll)
+        print('returning the max as', self.dll.get_max())
         self.assertEqual(self.dll.get_max(), 100)
         self.dll.add_to_tail(55)
         self.assertEqual(self.dll.get_max(), 100)
