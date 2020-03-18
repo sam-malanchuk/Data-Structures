@@ -133,7 +133,7 @@ class DoublyLinkedList:
         # if list has only one element
         elif self.head == self.tail:
             # unlink the node
-            value = self.head.value
+            value = self.tail.value
             self.head = None
             self.tail = None
             self.length -= 1

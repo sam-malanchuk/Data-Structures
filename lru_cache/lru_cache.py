@@ -1,5 +1,4 @@
 import sys
-sys.path.append('../doubly_linked_list')
 from doubly_linked_list import DoublyLinkedList
 
 class LRUCache:
@@ -27,8 +26,12 @@ class LRUCache:
     """
     def get(self, key):
         if key in self.storage:
+            print(f'yes, I did find {key} here')
             node = self.storage[key]
+            print(self.order)
             self.order.move_to_front(node)
+            print(self.order)
+            print(f'then returning \'{node.value[1]}\'')
             return node.value[1]
         else:
             return None
@@ -49,11 +52,29 @@ class LRUCache:
             node.value = (key, value)
             self.order.move_to_front(node)
             return
+        print(f'this is the size: {self.size}')
+        print(f'this is the limit: {self.limit}')
         if self.size == self.limit:
-            del self.storage[self.order.tail.value]
+            print(self.storage)
+            print(self.order)
+            print(f'wil remove {self.order.tail.value}')
+            del self.storage[self.order.tail.value[0]]
+            print(self.storage)
             self.order.remove_from_tail()
+            print('name', name)
+            print('removed', self.order)
             self.size -= 1
         
         self.order.add_to_head((key, value))
         self.storage[key] = self.order.head
         self.size += 1
+
+
+lruTest = LRUCache(3)
+lruTest.set("item1", "a")
+lruTest.set("item2", "b")
+lruTest.set("item3", "c")
+lruTest.get("item1")
+lruTest.set("item4", "d")
+
+print(lruTest.get("a"))
