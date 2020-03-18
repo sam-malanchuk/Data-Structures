@@ -1,3 +1,6 @@
+import sys
+from doubly_linked_list import DoublyLinkedList
+
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -7,7 +10,12 @@ class LRUCache:
     to every node stored in the cache.
     """
     def __init__(self, limit=10):
-        pass
+        # Max number of nodes it can hold
+        self.limit = limit
+        # Current number of nodes it is holding
+        self.size = 0
+        self.order = DoublyLinkedList()
+        self.storage = dict()
 
     """
     Retrieves the value associated with the given key. Also
@@ -17,7 +25,16 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        pass
+        if key in self.storage:
+            print(f'yes, I did find {key} here')
+            node = self.storage[key]
+            print(self.order)
+            self.order.move_to_front(node)
+            print(self.order)
+            print(f'then returning \'{node.value[1]}\'')
+            return node.value[1]
+        else:
+            return None
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -30,4 +47,36 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        pass
+        if key in self.storage:
+            node = self.storage[key]
+            node.value = (key, value)
+            self.order.move_to_front(node)
+            return
+        print(f'this is the size: {self.size}')
+        print(f'this is the limit: {self.limit}')
+        if self.size == self.limit:
+            print(self.storage)
+            print(f'wil remove {self.order.tail.value}')
+            print(f'the head {self.order.head.value}')
+            print(self.order)
+            print("value bracket", self.order.tail.value[0])
+            del self.storage[self.order.tail.value[0]]
+            print(self.storage)
+            name = self.order.remove_from_tail()
+            print('name', name)
+            print('removed', self.order)
+            self.size -= 1
+        
+        self.order.add_to_head((key, value))
+        self.storage[key] = self.order.head
+        self.size += 1
+
+
+# lruTest = LRUCache(3)
+# lruTest.set("item1", "a")
+# lruTest.set("item2", "b")
+# lruTest.set("item3", "c")
+# lruTest.get("item1")
+# lruTest.set("item4", "d")
+
+# print(lruTest.get("a"))

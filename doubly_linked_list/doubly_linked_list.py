@@ -133,7 +133,7 @@ class DoublyLinkedList:
         # if list has only one element
         elif self.head == self.tail:
             # unlink the node
-            value = self.head.value
+            value = self.tail.value
             self.head = None
             self.tail = None
             self.length -= 1
@@ -151,37 +151,79 @@ class DoublyLinkedList:
     """Removes the input node from its current spot in the 
     List and inserts it as the new head node of the List."""
     def move_to_front(self, node):
-        pass
+        # find the node, remove, and move to head
+        if node is self.head:
+            return
+        node_value = node.value
+        # delete the node
+        self.delete(node)
+        self.add_to_head(node_value)
 
     """Removes the input node from its current spot in the 
     List and inserts it as the new tail node of the List."""
     def move_to_end(self, node):
-        pass
+        # find the node, remove, and move to tail
+        if node is self.tail:
+            return
+        node_value = node.value
+        # delete the node
+        self.delete(node)
+        self.add_to_tail(node_value)
 
     """Removes a node from the list and handles cases where
     the node was the head or the tail"""
     def delete(self, node):
-        pass
+        # nodes pointing to the deleted item now point to the next/prev one 
+        self.length -= 1
+        if not self.head and not self.tail:
+            return
+        if self.head == self.tail:
+            self.head = None
+            self.tail = None
+        elif self.head == node:
+            self.head = node.next
+            node.delete()
+        elif self.tail == node:
+            self.tail = node.prev
+            node.delete()
+        else:
+            node.delete()
         
     """Returns the highest value currently in the list"""
     def get_max(self):
         if self.head is None and self.tail is None:
             return "empty list"
+        # curr_node = self.head
+        # max_value = curr_node.value
+        # while curr_node.next is not None:
+        #     if curr_node.value > max_value:
+        #         max_value = curr_node.value
+        #     curr_node = curr_node.next
+        # return max_value
         curr_node = self.head
-        max_value = curr_node.value
+        max_node = curr_node
         while curr_node.next is not None:
-            if curr_node.value > max_value:
-                max_value = curr_node.value
+            if max_node.value < curr_node.value:
+                max_node = curr_node
             curr_node = curr_node.next
-        return max_value
+        return max_node.value
+
+
 
 # our_dll = DoublyLinkedList()
-# our_dll.add_to_head(5)
+# our_dll.add_to_head(8)
 # our_dll.add_to_head(3)
-# our_dll.add_to_head(13)
+# our_dll.add_to_tail(13)
 # our_dll.add_to_head(5)
 # our_dll.add_to_tail(7)
 
 # print(our_dll)
-
 # print(f'our max value is: {our_dll.get_max()}')
+# print("removing tail", our_dll.tail.value)
+# our_dll.remove_from_tail()
+# print(our_dll)
+# print("deleting", our_dll.head.next.next.value)
+# our_dll.delete(our_dll.head.next.next)
+# print(our_dll)
+
+# print("The max is: ", our_dll.get_max())
