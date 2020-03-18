@@ -56,11 +56,13 @@ class LRUCache:
         print(f'this is the limit: {self.limit}')
         if self.size == self.limit:
             print(self.storage)
-            print(self.order)
             print(f'wil remove {self.order.tail.value}')
+            print(f'the head {self.order.head.value}')
+            print(self.order)
+            print("value bracket", self.order.tail.value[0])
             del self.storage[self.order.tail.value[0]]
             print(self.storage)
-            self.order.remove_from_tail()
+            name = self.order.remove_from_tail()
             print('name', name)
             print('removed', self.order)
             self.size -= 1
@@ -70,11 +72,11 @@ class LRUCache:
         self.size += 1
 
 
-lruTest = LRUCache(3)
-lruTest.set("item1", "a")
-lruTest.set("item2", "b")
-lruTest.set("item3", "c")
-lruTest.get("item1")
-lruTest.set("item4", "d")
+# lruTest = LRUCache(3)
+# lruTest.set("item1", "a")
+# lruTest.set("item2", "b")
+# lruTest.set("item3", "c")
+# lruTest.get("item1")
+# lruTest.set("item4", "d")
 
-print(lruTest.get("a"))
+# print(lruTest.get("a"))

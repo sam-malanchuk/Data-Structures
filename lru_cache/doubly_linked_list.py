@@ -184,7 +184,7 @@ class DoublyLinkedList:
             self.head == node.next
             node.delete()
         elif self.tail == node:
-            self.tail == node.prev
+            self.tail = node.prev
             node.delete()
         else:
             node.delete()
@@ -201,18 +201,18 @@ class DoublyLinkedList:
             curr_node = curr_node.next
         return max_value
 
-our_dll = DoublyLinkedList()
-our_dll.add_to_head(8)
-our_dll.add_to_head(3)
-our_dll.add_to_head(13)
-our_dll.add_to_head(5)
-our_dll.add_to_tail(7)
+# our_dll = DoublyLinkedList()
+# our_dll.add_to_head(8)
+# our_dll.add_to_head(3)
+# our_dll.add_to_head(13)
+# our_dll.add_to_head(5)
+# our_dll.add_to_tail(7)
 
-print(our_dll)
-print(f'our max value is: {our_dll.get_max()}')
-print("removing tail", our_dll.tail.value)
-our_dll.remove_from_tail()
-print(our_dll)
-print("deleting", our_dll.head.next.next.value)
-our_dll.delete(our_dll.head.next.next)
-print(our_dll)
+# print(our_dll)
+# print(f'our max value is: {our_dll.get_max()}')
+# print("removing tail", our_dll.tail.value)
+# our_dll.remove_from_tail()
+# print(our_dll)
+# print("deleting", our_dll.head.next.next.value)
+# our_dll.delete(our_dll.head.next.next)
+# print(our_dll)

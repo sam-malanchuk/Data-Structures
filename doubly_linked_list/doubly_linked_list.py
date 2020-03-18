@@ -184,7 +184,7 @@ class DoublyLinkedList:
             self.head == node.next
             node.delete()
         elif self.tail == node:
-            self.tail == node.prev
+            self.tail = node.prev
             node.delete()
         else:
             node.delete()
@@ -193,14 +193,13 @@ class DoublyLinkedList:
     def get_max(self):
         if self.head is None and self.tail is None:
             return "empty list"
-
-        max_value = curr_node = self.head
-
-        while curr_node is not None:
-            if curr_node.value > max_value.value:
-                max_value = curr_node
+        curr_node = self.head
+        max_value = curr_node.value
+        while curr_node.next is not None:
+            if curr_node.value > max_value:
+                max_value = curr_node.value
             curr_node = curr_node.next
-        return max_value.value
+        return max_value
 
 # our_dll = DoublyLinkedList()
 # our_dll.add_to_head(8)
