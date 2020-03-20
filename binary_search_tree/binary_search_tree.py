@@ -1,7 +1,7 @@
 import sys
 sys.path.append('../queue_and_stack')
-# from dll_queue import Queue
-# from dll_stack import Stack
+from dll_queue import Queue
+from dll_stack import Stack
 
 
 class BinarySearchTree:
@@ -91,32 +91,44 @@ class BinarySearchTree:
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        pass
-    #      6
-    #    /   \
-    #   3     5
-    #  / \   / \
-    # 1   2 4   7
-    # create a queue of nodes
-    # add current node to queue
-    # while queue is not empty:
-        # dequeue the node
-        # print node
-        # add its children
+        # create a queue of nodes
+        queue = Queue()
+        # add current node to queue
+        queue.enqueue(node)
+        # while queue is not empty:
+        while queue.len() > 0:
+            # dequeue the node
+            node = queue.dequeue()
+            # print node
+            print(node.value)
+            # add its children
             # add left (if available)
+            if node.left is not None:
+                self.bft_print(node.left)
             # add right (if available) 
+            if node.right is not None:
+                self.bft_print(node.right)
+
+
+        pass
+        #      6
+        #    /   \
+        #   3     5
+        #  / \   / \
+        # 1   2 4   7
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
-    #      3
-    #     / \
-    #    /   \
-    #   2     5
-    #  /     /
-    # 1     4
+        pass
+        #      3
+        #     / \
+        #    /   \
+        #   2     5
+        #  /     /
+        # 1     4
         # create a node_stack
-        node_stack = 
+        # node_stack = 
         # push the left value of the current node on
 
         # while we have items on stack
@@ -138,11 +150,13 @@ class BinarySearchTree:
         pass
 
 
-bst = BinarySearchTree(3)
+bst = BinarySearchTree(6)
 
-bst.insert(2)
+bst.insert(3)
 bst.insert(1)
+bst.insert(2)
 bst.insert(5)
 bst.insert(4)
+bst.insert(7)
 
-bst.in_order_print(bst)
+bst.bft_print(bst)
